@@ -1,0 +1,42 @@
+.footer {
+    background-color: white;
+    padding: 15px 0px;
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.08);
+    margin-top: auto;
+}
+
+.h2 {
+    margin: 0;
+}
+
+.container {
+    max-width: 1220px;
+    padding: 0 10px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menuPosition {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.menu {
+    background-color: transparent;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.menu:hover {
+    color:rgb(24, 117, 240) ;
+}
+
+.link {
+    font-size: 16px;
+    font-weight: 500;
+}

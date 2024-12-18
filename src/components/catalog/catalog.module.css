@@ -1,0 +1,17 @@
+.container {
+    max-width: 1220px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.info {
+    font-size: 14px;
+}
+
+.flexMain {
+    display: flex;
+    /* gap: 20px; */
+    width: 100%;
+    /* min-width: 1137px; */
+    justify-content: space-between;
+}

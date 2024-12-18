@@ -1,0 +1,42 @@
+body {
+  margin: 0;
+  /* background-color: #dee2f1; */
+  /* background-color: #eceffd; */
+  /* background-color: #E5E5E5; */
+  /* #e1e5f7 */
+  background-color: #eff0ff;
+  /* background-color: #f1f2ff; */
+  
+}
+
+p {
+  font-family: "Inter", sans-serif;
+}
+
+h1 {
+  font-family: "Prosto One", sans-serif;
+}
+
+h2 {
+  font-family: "Inter", sans-serif;
+}
+
+h3 {
+  font-family: "Inter", sans-serif;
+}
+
+h4 {
+  font-family: "Inter", sans-serif;
+}
+
+input {
+  font-family: "Inter", sans-serif;
+}
+
+button {
+  font-family: "Inter", sans-serif;
+}
+
+li {
+  font-family: "Inter", sans-serif;
+}
