@@ -5,6 +5,7 @@ import { Modal, ConfigProvider, Button, Skeleton, Flex } from "antd";
 import { IoMdCopy, IoMdCheckmark } from "react-icons/io";
 import { useParams } from "react-router-dom";
 
+
 const supabase = createClient("https://bgzzybfspduugexyavws.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnenp5YmZzcGR1dWdleHlhdndzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjQzNTEwMzMsImV4cCI6MjAzOTkyNzAzM30.nCq3Rex2zdCKgJPdVzGhzmNVOEoM-LwBF3TF_cPvUhs");
 
 type promoTableType = {
