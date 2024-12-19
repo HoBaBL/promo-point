@@ -151,7 +151,42 @@ const StoreLink = () => {
                     promoTable!.length > 0 ?
                         promoTable?.sort((a, b) => b.num - a.num).map((item) => 
                             date < new Date(item.time) ?
-                            <div className={style.item} key={String(item.id)}>
+                        <div key={String(item.id)}>
+                            <div className={style.itemMin}>
+                                <div className={style.flexMin}>
+                                    <div className={style.imgItemBox}>
+                                        <img className={style.imgItem} src={item.img} alt="" />
+                                    </div>
+                                    <div className={style.positionMinMin}>
+                                        <p className={style.textDescription}>{item.description}</p>
+                                        <h4 className={style.h4}>{item.store}</h4>
+                                        
+                                    </div>
+                                </div>
+                                <div className={style.flexFlexMin}>
+                                    <p className={style.minusPrice}>- {item.promo}</p>
+                                    {date < new Date(item.time) ? <p>до {item.working}</p> : <p style={{color:'red'}}>Срок акции истёк</p>}
+                                </div>
+                                <div className={style.codPosition}>
+                                    <ConfigProvider
+                                theme={{
+                                    components: {
+                                        Button: {
+                                            defaultBg:"rgb(73, 155, 242)",
+                                            defaultColor:"white",
+                                            defaultHoverBg:"rgb(55, 138, 248)",
+                                            defaultHoverColor:"white",
+                                        },
+                                    },
+                                }}
+                            >
+                                <Button disabled={date > new Date(item.time)} className={style.btnCodCodMin} color="default" onClick={() => showModal(item)}>
+                                    Показать код
+                                </Button>
+                                    </ConfigProvider>
+                                </div>
+                            </div>
+                            <div className={style.item} >
                                 <div className={style.imgItemBox}>
                                     <img className={style.imgItem} src={item.img} alt="" />
                                 </div>
@@ -182,6 +217,7 @@ const StoreLink = () => {
                                     </div>
                                 </div>
                             </div>
+                        </div>
                             : ""
                         )
                         : <p>Промокодов нет</p>
@@ -227,7 +263,42 @@ const StoreLink = () => {
                     :
                     promoTable?.sort((a, b) => b.num - a.num).map((item) => 
                         date > new Date(item.time) ?
-                        <div className={style.item} key={String(item.id)}>
+                    <div key={String(item.id)}>
+                        <div className={style.itemMin}>
+                            <div className={style.flexMin}>
+                                <div className={style.imgItemBox}>
+                                    <img className={style.imgItem} src={item.img} alt="" />
+                                </div>
+                                <div className={style.positionMinMin}>
+                                    <p className={style.textDescription}>{item.description}</p>
+                                    <h4 className={style.h4}>{item.store}</h4>
+                                    
+                                </div>
+                            </div>
+                            <div className={style.flexFlexMin}>
+                                <p className={style.minusPrice}>- {item.promo}</p>
+                                {date < new Date(item.time) ? <p>до {item.working}</p> : <p style={{color:'red'}}>Срок акции истёк</p>}
+                            </div>
+                            <div className={style.codPosition}>
+                                <ConfigProvider
+                            theme={{
+                                components: {
+                                    Button: {
+                                        defaultBg:"rgb(73, 155, 242)",
+                                        defaultColor:"white",
+                                        defaultHoverBg:"rgb(55, 138, 248)",
+                                        defaultHoverColor:"white",
+                                    },
+                                },
+                            }}
+                        >
+                            <Button disabled={date > new Date(item.time)} className={style.btnCodCodMin} color="default" onClick={() => showModal(item)}>
+                                Показать код
+                            </Button>
+                                </ConfigProvider>
+                            </div>
+                        </div>
+                        <div className={style.item} >
                             <div className={style.imgItemBox}>
                                 <img className={style.imgItem} src={item.img} alt="" />
                             </div>
@@ -258,6 +329,7 @@ const StoreLink = () => {
                                 </div>
                             </div>
                         </div>
+                    </div>
                         : ''
                     )
 

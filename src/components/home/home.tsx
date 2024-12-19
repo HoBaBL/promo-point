@@ -231,8 +231,8 @@ const Home = () => {
                         :
                         promoTable?.sort((a, b) => b.num - a.num).map((item) => 
                             date < new Date(item.time) ?
-                        <div className={style.bigItem}>
-                            <div className={style.item} key={String(item.id)}>
+                        <div key={String(item.id)} className={style.bigItem}>
+                            <div  className={style.item} >
                                 <div className={style.imgItemBox}>
                                     <img className={style.imgItem} src={item.img} alt="" />
                                 </div>
