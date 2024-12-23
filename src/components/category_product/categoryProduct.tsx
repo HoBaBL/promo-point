@@ -1,4 +1,4 @@
-import style from './CategoryProduct.module.css'
+import style from '../category/category.module.css'
 import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { Modal, ConfigProvider, Button, Skeleton, Flex } from "antd";
