@@ -118,6 +118,7 @@ const Home = () => {
       setCopy(false)
     };
     /////
+    
     const [copy, setCopy] = useState(false)
     const copyTextToClipboard = async (text:any) => {
         setCopy(true)
@@ -179,7 +180,12 @@ const Home = () => {
     }
 
     const date = new Date()
-    // .sort((a, b) => b.id - a.id)
+
+    //// скролл в начало страницы
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    },[])
+
     return (
         <div className={style.home}>
             <Modal footer={null} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>

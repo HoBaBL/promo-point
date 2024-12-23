@@ -7,6 +7,7 @@ import { AiOutlineProduct } from "react-icons/ai";
 import { LuGamepad2 } from "react-icons/lu";
 import { Link } from 'react-router-dom';
 import store from '../../assets/store';
+import { useEffect } from 'react';
 
 
 const Category = () => {
@@ -81,13 +82,18 @@ const Category = () => {
         localStorage.setItem('category', item.name);
     }
 
+    //// скролл в начало страницы
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    },[])
+
     return(
         <div className={style.container}>
             <h1 className={style.h1}>Категории промокодов в интернет-магазинах</h1>
             <div className={style.block}>
                 {categories.map((category) => 
                     <Link key={category.name} onClick={() => localCategory(category)} to={category.name === "Все товары" ? "/catalog" : `/catalog/category/${category.nameEn}`}>
-                        <button className={style.categorias} key={category.name}>
+                        <button className={style.categorias}>
                             <div className={style.categoriasImg}>{category.img}</div>
                             <p className={style.categoriasText}>{category.name}</p>
                         </button>

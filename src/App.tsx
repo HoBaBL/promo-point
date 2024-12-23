@@ -9,8 +9,10 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem('nameStore', "Купер");
-    navigate('/home')
+    // navigate('/home', { replace: true });
   },[])
+
+  
 
   return (
     <div className='mainPosition'>

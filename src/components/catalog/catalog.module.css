@@ -10,7 +10,7 @@
 
 .flexMain {
     display: flex;
-    /* gap: 20px; */
+    gap: 20px;
     width: 100%;
     /* min-width: 1137px; */
     justify-content: space-between;

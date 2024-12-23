@@ -4,6 +4,23 @@
     /* margin-top: 40px; */
 }
 
+.container {
+    max-width: 1220px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.info {
+    font-size: 14px;
+}
+
+.flexMain {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    min-width: 1137px;
+}
+
 .imgItem {
     width: 200px;
     border-radius: 6px;
@@ -206,86 +223,3 @@
     font-size: 24px;
     margin-top: 40px;
 }
-
-.itemMin {
-    display: none;
-}
-
-
-@media (max-width: 724px) {
-    .h2 {
-        font-size: 30px;   
-        margin-top: 0; 
-    }
-
-    .h3 {
-        font-size: 22px;
-    }
-}
-
-@media (max-width: 750px) {
-    .imgItem {
-        width: 150px;
-        height: auto;
-    }
-}
-
-@media (max-width: 890px) {
-    .container {
-        width: 100%;
-    }
-
-    .item {
-        display: block;
-    }
-
-    .flexMin {
-        display: flex;
-        width: 100%;
-        gap: 20px;
-    }
-
-    .flexFlexMin {
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .positionMinMin {
-        width: 100%;
-    }
-
-    .btnCodCodMin {
-        display: block;
-        padding: 10px 20px;
-        font-size: 18px;
-        border: none;
-        height: 46px;
-        width: 90%;
-        margin: 0 auto;
-        margin-top: 15px;
-    }
-
-    .itemMin {
-        display: block;
-        background-color: white;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.08);
-        border-radius: 6px;
-        padding: 10px;
-        gap: 20px;
-        align-items: center
-    }
-
-    .item {
-        display: none;
-    }
-
-    .textDescription {
-        margin: 0;
-    }
-}
-
-@media (max-width: 420px) {
-    .imgItem {
-        width: 100px;
-    }
-}   

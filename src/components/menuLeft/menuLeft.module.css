@@ -20,6 +20,7 @@
 .menuPosition {
     width: 22%;
     margin-top: 45px;
+    min-width: 268px;
 }
 
 .flexMenu {
@@ -78,15 +79,39 @@
     justify-content: center;
 }
 
+.categorias {
+    gap: 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    border-radius: 10px;
+    transition: 0.3s;
+    padding: 5px 0;
+    width: 100%;
+}
+
+.categorias:hover {
+    box-shadow: 0px 1px 20px 0px rgba(33, 33, 33, .05);
+}
+
+.categoriasText {
+    font-size: 20px;
+    font-weight: 500;
+    text-align: start;
+    margin: 0;
+}
+
 
 @media (max-width: 1120px) {
     .flexMenu {
         gap: 10px;
-        grid-template-columns: repeat(2, 1fr);
+        /* grid-template-columns: repeat(2, 1fr); */
     }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 890px) {
     .menuPosition {
         display: none;
     }   

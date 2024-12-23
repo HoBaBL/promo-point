@@ -1,8 +1,10 @@
-import style from './blog.module.css'
+import style from './CategoryProduct.module.css'
 import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { Modal, ConfigProvider, Button, Skeleton, Flex } from "antd";
 import { IoMdCopy, IoMdCheckmark } from "react-icons/io";
+import { useParams } from "react-router-dom";
+
 
 const supabase = createClient("https://bgzzybfspduugexyavws.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnenp5YmZzcGR1dWdleHlhdndzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjQzNTEwMzMsImV4cCI6MjAzOTkyNzAzM30.nCq3Rex2zdCKgJPdVzGhzmNVOEoM-LwBF3TF_cPvUhs");
 
@@ -20,17 +22,26 @@ type promoTableType = {
     num: number
 }
 
-const Blog = () => {
-    const [promoTable, setPromoTable] = useState<promoTableType[] | null>([]);
+const CategoryProduct = () => {
+    const [promoTable, setPromoTable] = useState<promoTableType[] | null>();
     const [loading, setLoading] = useState(false)
-    const [modal, setModal] = useState(false)
+    const [nameStore, setNameStore] = useState(localStorage.getItem('category')!)
+    const { id } = useParams()
+
+    useEffect(() => {
+        setNameStore(localStorage.getItem('category')!)
+    },[id])
+    
 
     useEffect(() => {
         getPromo();
-    }, []);
+    }, [id]);
   
     async function getPromo() {
-        const { data, error } = await supabase.from("promo").select();
+        const { data, error } = await supabase
+        .from("promo")
+        .select()
+        .eq('category', localStorage.getItem('category'));
         setPromoTable(data);
         setLoading(true)
         if (error !== null) {
@@ -67,15 +78,11 @@ const Blog = () => {
           console.error('Ошибка:', err);
         }
     };
+
     const date = new Date()
 
-    //// скролл в начало страницы
-    useEffect(() => {
-        window.scrollTo(0, 0)
-    },[])
-
     return (
-        <div className={style.container}>
+        <div key={id} className={style.container}>
             <Modal footer={null} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                 <p className={style.modalMaxText}>{storeActive?.description}</p>
                 <p className={style.textStore}>{storeActive?.store}</p>
@@ -103,8 +110,8 @@ const Blog = () => {
                     </Button>
                 </ConfigProvider>
             </Modal>
-            <p className={style.info}>Промокоды / Все Промокоды</p>
-            <h2 className={style.h2}>Новые промокоды</h2>
+            <p className={style.info}>Промокоды / Все Промокоды / {nameStore}</p>
+            <h2 className={style.h2}>{nameStore}</h2>
             <div className={style.fullBlog}>
                 {!loading ? 
                 <Flex vertical gap='middle'>
@@ -142,44 +149,10 @@ const Blog = () => {
                     </Flex>
                 </Flex>
                     :
-                    promoTable?.sort((a, b) => b.num - a.num).map((item) => 
-                        date < new Date(item.time) ?
-                        <div key={String(item.id)}>
-                            <div className={style.itemMin} >
-                                <div className={style.flexMin}>
-                                    <div className={style.imgItemBox}>
-                                        <img className={style.imgItem} src={item.img} alt="" />
-                                    </div>
-                                    <div className={style.positionMinMin}>
-                                        <p className={style.textDescription}>{item.description}</p>
-                                        <h4 className={style.h4}>{item.store}</h4>
-                                        
-                                    </div>
-                                </div>
-                                <div className={style.flexFlexMin}>
-                                    <p className={style.minusPrice}>- {item.promo}</p>
-                                    {date < new Date(item.time) ? <p>до {item.working}</p> : <p style={{color:'red'}}>Срок акции истёк</p>}
-                                </div>
-                                <div className={style.codPosition}>
-                                    <ConfigProvider
-                                theme={{
-                                    components: {
-                                        Button: {
-                                            defaultBg:"rgb(73, 155, 242)",
-                                            defaultColor:"white",
-                                            defaultHoverBg:"rgb(55, 138, 248)",
-                                            defaultHoverColor:"white",
-                                        },
-                                    },
-                                }}
-                            >
-                                <Button disabled={date > new Date(item.time)} className={style.btnCodCodMin} color="default" onClick={() => showModal(item)}>
-                                    Показать код
-                                </Button>
-                                    </ConfigProvider>
-                                </div>
-                            </div>
-                            <div className={style.item}>
+                    promoTable!.length > 0 ?
+                        promoTable?.sort((a, b) => b.num - a.num).map((item) => 
+                            date < new Date(item.time) ? 
+                            <div className={style.item} key={String(item.id)}>
                                 <div className={style.imgItemBox}>
                                     <img className={style.imgItem} src={item.img} alt="" />
                                 </div>
@@ -210,12 +183,10 @@ const Blog = () => {
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        : ''
-                    )
-
+                            : ""
+                        )
+                        : <p>Промокодов нет</p>
                 }
-
             </div>
             <div className={style.fullBlog}>
                 <h3 className={style.promoH3}>Истёкшие промокоды</h3>
@@ -257,70 +228,34 @@ const Blog = () => {
                     :
                     promoTable?.sort((a, b) => b.num - a.num).map((item) => 
                         date > new Date(item.time) ?
-                        <div key={String(item.id)}>
-                            <div className={style.itemMin}>
-                                <div className={style.flexMin}>
-                                    <div className={style.imgItemBox}>
-                                        <img className={style.imgItem} src={item.img} alt="" />
-                                    </div>
-                                    <div className={style.positionMinMin}>
-                                        <p className={style.textDescription}>{item.description}</p>
-                                        <h4 className={style.h4}>{item.store}</h4>
-                                        
-                                    </div>
-                                </div>
-                                <div className={style.flexFlexMin}>
+                        <div className={style.item} key={String(item.id)}>
+                            <div className={style.imgItemBox}>
+                                <img className={style.imgItem} src={item.img} alt="" />
+                            </div>
+                            <div className={style.textPosition}>
+                                <div>
+                                    <p className={style.textDescription}>{item.description}</p>
+                                    <h4 className={style.h4}>{item.store}</h4>
                                     <p className={style.minusPrice}>- {item.promo}</p>
-                                    {date < new Date(item.time) ? <p>до {item.working}</p> : <p style={{color:'red'}}>Срок акции истёк</p>}
                                 </div>
                                 <div className={style.codPosition}>
+                                    {date < new Date(item.time) ? <p>до {item.working}</p> : <p style={{color:'red'}}>Срок акции истёк</p>}
                                     <ConfigProvider
-                                theme={{
-                                    components: {
-                                        Button: {
-                                            defaultBg:"rgb(73, 155, 242)",
-                                            defaultColor:"white",
-                                            defaultHoverBg:"rgb(55, 138, 248)",
-                                            defaultHoverColor:"white",
-                                        },
-                                    },
-                                }}
-                            >
-                                <Button disabled={date > new Date(item.time)} className={style.btnCodCodMin} color="default" onClick={() => showModal(item)}>
-                                    Показать код
-                                </Button>
-                                    </ConfigProvider>
-                                </div>
-                            </div>
-                            <div className={style.item}>
-                                <div className={style.imgItemBox}>
-                                    <img className={style.imgItem} src={item.img} alt="" />
-                                </div>
-                                <div className={style.textPosition}>
-                                    <div>
-                                        <p className={style.textDescription}>{item.description}</p>
-                                        <h4 className={style.h4}>{item.store}</h4>
-                                        <p className={style.minusPrice}>- {item.promo}</p>
-                                    </div>
-                                    <div className={style.codPosition}>
-                                        {date < new Date(item.time) ? <p>до {item.working}</p> : <p style={{color:'red'}}>Срок акции истёк</p>}
-                                        <ConfigProvider
-                                                theme={{
-                                                    components: {
-                                                        Button: {
-                                                            defaultBg:"rgb(73, 155, 242)",
-                                                            defaultColor:"white",
-                                                            defaultHoverBg:"rgb(55, 138, 248)",
-                                                            defaultHoverColor:"white",
-                                                        },
+                                            theme={{
+                                                components: {
+                                                    Button: {
+                                                        defaultBg:"rgb(73, 155, 242)",
+                                                        defaultColor:"white",
+                                                        defaultHoverBg:"rgb(55, 138, 248)",
+                                                        defaultHoverColor:"white",
                                                     },
-                                                }}
-                                            >
-                                                <Button disabled={date > new Date(item.time)} className={style.btnCodCod} color="default" onClick={() => showModal(item)}>
-                                                    Показать код
-                                                </Button>
-                                            </ConfigProvider>
-                                    </div>
+                                                },
+                                            }}
+                                        >
+                                            <Button disabled={date > new Date(item.time)} className={style.btnCodCod} color="default" onClick={() => showModal(item)}>
+                                                Показать код
+                                            </Button>
+                                        </ConfigProvider>
                                 </div>
                             </div>
                         </div>
@@ -330,13 +265,8 @@ const Blog = () => {
                 }
 
             </div>
-            <div className={modal ? style.modalActive : style.modal} onClick={() => setModal(false)}>
-                <div className={style.ModalContent} onClick={e => e.stopPropagation()}>
-
-                </div>
-            </div>
         </div>
     )
 }
 
-export default Blog
+export default CategoryProduct

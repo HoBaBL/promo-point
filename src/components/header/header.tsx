@@ -62,7 +62,7 @@ const Header = () => {
             <div className={style.container}>
                 <div className={style.menuPosition}>
                     
-                    <Link to={'/home'}>
+                    <Link to={'/'}>
                         <h2 className={style.h2}>PromoPoint</h2>
                     </Link>
                     <div className={style.menuMax}>
