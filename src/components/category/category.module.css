@@ -102,6 +102,232 @@
     margin: 20px;
 }
 
+.container {
+    width: 75%;
+    /* padding: 10px; */
+    /* margin-top: 40px; */
+}
+
+.container {
+    max-width: 1220px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.info {
+    font-size: 14px;
+}
+
+.flexMain {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    min-width: 1137px;
+}
+
+.imgItem {
+    width: 200px;
+    border-radius: 6px;
+    height: 100px;
+    overflow: hidden;
+}
+
+.disLikeBtn {
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+    transition: 0.3s;
+}
+
+.textDescription {
+    max-width: 500px;
+}
+
+.h4 {
+    margin: 0;
+}
+
+.likeBtn {
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+    transition: 0.3s;
+}
+
+.likeBtn:hover {
+    color: rgb(3, 172, 3);
+}
+
+.disLikeBtn:hover {
+    color: red;
+}
+
+.likePosition {
+    width: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: solid 1px;
+    border-radius: 20px;
+    padding: 8px;
+}
+
+.span {
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+}
+
+.info {
+    font-size: 14px;
+}
+
+.item {
+    display: flex;
+    background-color: white;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.08);
+    border-radius: 6px;
+    padding: 10px;
+    gap: 20px;
+    align-items: center
+}
+
+.imgItemBox {
+    transition: 0.2s;
+}
+
+.fullBlog {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.minusPrice {
+    color: rgb(73, 155, 242);
+    margin-bottom: 0;
+}
+
+.codPosition {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.btnCod {
+    background-color: rgb(73, 155, 242);
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btnCod:hover {
+    background-color: rgb(24, 117, 240);
+}
+
+.textPosition {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.modalActive {
+    opacity: 1;
+    visibility: visible;
+    display: block;
+    position: fixed;
+    background-color: rgb(0, 0, 0, 0.5);
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 100000;
+    transition: 0.5s;
+    cursor: auto;
+}
+
+.modal {
+    position: fixed;
+    background-color: rgb(0, 0, 0, 0.5);
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 100000;
+    transition: 0.5s;
+    display: none;
+    cursor: auto;
+} 
+
+.ModalContent {
+    /* width:  300px; */
+    /* height: 200px; */
+    padding: 40px;
+    background-color: white;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, 0%);
+    transition: 0.5s;
+}
+
+.h2 {
+    font-size: 40px;
+}
+
+.btnCodCod {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    height: 42px;
+}
+
+.modalMaxText {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.textStore {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.modalCode {
+    border: solid rgb(73, 155, 242) 1px;
+    border-radius: 6px;
+    width: 100%;
+    text-align: center;
+    padding: 5px;
+    margin: 0;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.modalFlex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+    margin-bottom: 40px;
+    margin-top: 30px;
+}
+
+.modalCodeBtn {
+    height: 40px;
+}
+
+.promoH3 {
+    font-size: 24px;
+    margin-top: 40px;
+}
+
 
 @media (max-width: 870px) {
     .block {
