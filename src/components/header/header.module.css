@@ -13,6 +13,17 @@
     margin: 0;
 }
 
+.itelP {
+    margin: 0;
+    font-size: 14px;
+}
+
+.flexTitle {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
 .container {
     max-width: 1220px;
     padding: 0 10px;

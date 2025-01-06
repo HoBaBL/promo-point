@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import store from '../../assets/store';
 import { GiHamburgerMenu } from "react-icons/gi";
 import { RxCross2 } from "react-icons/rx";
+import { GrCube } from "react-icons/gr";
 
 const Header = () => {
     const { Search } = Input;
@@ -62,8 +63,13 @@ const Header = () => {
             <div className={style.container}>
                 <div className={style.menuPosition}>
                     
-                    <Link to={'/'}>
-                        <h2 className={style.h2}>PromoPoint</h2>
+                    <Link to={'/'} className={style.flexTitle}>
+                        <GrCube size={34}/>
+                        <div>
+                            <h2 className={style.h2}>Pixel.ru</h2>
+                            <p className={style.itelP}>Промокоды</p>
+                        </div>
+                        
                     </Link>
                     <div className={style.menuMax}>
                         <Link to={'/catalog'}>

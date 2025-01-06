@@ -8,7 +8,7 @@ import { PiHamburgerBold, PiSneaker, PiBooks, PiPillBold } from "react-icons/pi"
 import { IoBicycleOutline, IoTicketOutline } from "react-icons/io5";
 import { TbCoins } from "react-icons/tb";
 import { AiOutlineProduct } from "react-icons/ai";
-import { Modal, ConfigProvider, Button, Input} from "antd";
+import { Modal, ConfigProvider, Button, Input, Flex, Skeleton} from "antd";
 import { IoMdCopy, IoMdCheckmark } from "react-icons/io";
 import store from '../../assets/store';
 
@@ -229,13 +229,46 @@ const Home = () => {
                     )}
                 </div>
             </div>
-            {/* .slice(0,4) */}
             <div className={style.newPromo}>    
                 <h3 className={style.h3}>Новые промокоды</h3>
                 <div className={style.fullBlog}>
-                    {!loading ? 'Загрузка'
+                    {!loading ? 
+                            <>
+                                <Flex gap='middle' style={{width:'100%'}}>
+                                    <Skeleton.Image active={true} style={{width:'200px'}}/>
+                                    <Flex style={{width:'100%'}} gap='small' vertical>
+                                        <Skeleton.Input active={true} style={{width:'100%', minWidth:"0px"}} />
+                                        <Skeleton.Input active={true} style={{width:'100%', height:'24px', minWidth:"0px"}} />
+                                        <Skeleton.Input active={true} style={{width:'100%', height:'24px', minWidth:"0px"}} />
+                                    </Flex>
+                                </Flex>
+                                <Flex gap='middle'>
+                                    <Skeleton.Image active={true} style={{width:'200px'}}/>
+                                    <Flex style={{width:'100%'}} gap='small' vertical>
+                                        <Skeleton.Input active={true} style={{width:'100%', minWidth:"0px"}} />
+                                        <Skeleton.Input active={true} style={{width:'100%', height:'24px', minWidth:"0px"}} />
+                                        <Skeleton.Input active={true} style={{width:'100%', height:'24px', minWidth:"0px"}} />
+                                    </Flex>
+                                </Flex>
+                                <Flex gap='middle' style={{width:'100%'}}>
+                                    <Skeleton.Image active={true} style={{width:'200px'}}/>
+                                    <Flex style={{width:'100%'}} gap='small' vertical>
+                                        <Skeleton.Input active={true} style={{width:'100%', minWidth:"0px"}} />
+                                        <Skeleton.Input active={true} style={{width:'100%', height:'24px', minWidth:"0px"}} />
+                                        <Skeleton.Input active={true} style={{width:'100%', height:'24px', minWidth:"0px"}} />
+                                    </Flex>
+                                </Flex>
+                                <Flex gap='middle'>
+                                    <Skeleton.Image active={true} style={{width:'200px'}}/>
+                                    <Flex style={{width:'100%'}} gap='small' vertical>
+                                        <Skeleton.Input active={true} style={{width:'100%', minWidth:"0px"}} />
+                                        <Skeleton.Input active={true} style={{width:'100%', height:'24px', minWidth:"0px"}} />
+                                        <Skeleton.Input active={true} style={{width:'100%', height:'24px', minWidth:"0px"}} />
+                                    </Flex>
+                                </Flex>
+                            </>
                         :
-                        promoTable?.sort((a, b) => b.num - a.num).map((item) => 
+                        promoTable?.sort((a, b) => b.num - a.num).slice(0,4).map((item) => 
                             date < new Date(item.time) ?
                         <div key={String(item.id)} className={style.bigItem}>
                             <div  className={style.item} >

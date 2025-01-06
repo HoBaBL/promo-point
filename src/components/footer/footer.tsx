@@ -8,7 +8,7 @@ const Footer = () => {
         <footer className={style.footer}>
             <div className={style.container}>
                 <div className={style.menuPosition}>
-                    <Link to={'/home'}>
+                    <Link to={'/'}>
                         <h2 className={style.h2}>PROMO</h2>
                     </Link>
                     <div>

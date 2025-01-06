@@ -188,7 +188,7 @@ const CategoryProduct = () => {
                         : <p>Промокодов нет</p>
                 }
             </div>
-            <div className={style.fullBlog}>
+            {/* <div className={style.fullBlog}>
                 <h3 className={style.promoH3}>Истёкшие промокоды</h3>
                 {!loading ? 
                 <Flex vertical gap='middle'>
@@ -264,7 +264,7 @@ const CategoryProduct = () => {
 
                 }
 
-            </div>
+            </div> */}
         </div>
     )
 }

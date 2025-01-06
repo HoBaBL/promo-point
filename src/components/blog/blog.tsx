@@ -111,33 +111,33 @@ const Blog = () => {
                     <Flex gap='middle'>
                         <Skeleton.Image active={true} style={{width:'200px'}}/>
                         <Flex style={{width:'100%'}} gap='small' vertical>
-                            <Skeleton.Input active={true} style={{width:'100%'}} />
-                            <Skeleton.Input active={true} style={{width:'100px', height:'24px'}} />
-                            <Skeleton.Input active={true} style={{width:'100px', height:'24px'}} />
+                            <Skeleton.Input active={true} style={{width:'100%', minWidth:"0px"}} />
+                            <Skeleton.Input active={true} style={{width:'100px', height:'24px', minWidth:"0px"}} />
+                            <Skeleton.Input active={true} style={{width:'100px', height:'24px', minWidth:"0px"}} />
                         </Flex>
                     </Flex>
                     <Flex gap='middle'>
                         <Skeleton.Image active={true} style={{width:'200px'}}/>
                         <Flex style={{width:'100%'}} gap='small' vertical>
-                            <Skeleton.Input active={true} style={{width:'100%'}} />
-                            <Skeleton.Input active={true} style={{width:'100px', height:'24px'}} />
-                            <Skeleton.Input active={true} style={{width:'100px', height:'24px'}} />
+                            <Skeleton.Input active={true} style={{width:'100%', minWidth:"0px"}} />
+                            <Skeleton.Input active={true} style={{width:'100px', height:'24px', minWidth:"0px"}} />
+                            <Skeleton.Input active={true} style={{width:'100px', height:'24px', minWidth:"0px"}} />
                         </Flex>
                     </Flex>
                     <Flex gap='middle'>
                         <Skeleton.Image active={true} style={{width:'200px'}}/>
                         <Flex style={{width:'100%'}} gap='small' vertical>
-                            <Skeleton.Input active={true} style={{width:'100%'}} />
-                            <Skeleton.Input active={true} style={{width:'100px', height:'24px'}} />
-                            <Skeleton.Input active={true} style={{width:'100px', height:'24px'}} />
+                            <Skeleton.Input active={true} style={{width:'100%', minWidth:"0px"}} />
+                            <Skeleton.Input active={true} style={{width:'100px', height:'24px', minWidth:"0px"}} />
+                            <Skeleton.Input active={true} style={{width:'100px', height:'24px', minWidth:"0px"}} />
                         </Flex>
                     </Flex>
                     <Flex gap='middle'>
                         <Skeleton.Image active={true} style={{width:'200px'}}/>
                         <Flex style={{width:'100%'}} gap='small' vertical>
-                            <Skeleton.Input active={true} style={{width:'100%'}} />
-                            <Skeleton.Input active={true} style={{width:'100px', height:'24px'}} />
-                            <Skeleton.Input active={true} style={{width:'100px', height:'24px'}} />
+                            <Skeleton.Input active={true} style={{width:'100%', minWidth:"0px"}} />
+                            <Skeleton.Input active={true} style={{width:'100px', height:'24px', minWidth:"0px"}} />
+                            <Skeleton.Input active={true} style={{width:'100px', height:'24px', minWidth:"0px"}} />
                         </Flex>
                     </Flex>
                 </Flex>
@@ -217,7 +217,7 @@ const Blog = () => {
                 }
 
             </div>
-            <div className={style.fullBlog}>
+            {/* <div className={style.fullBlog}>
                 <h3 className={style.promoH3}>Истёкшие промокоды</h3>
                 {!loading ? 
                 <Flex vertical gap='middle'>
@@ -329,7 +329,7 @@ const Blog = () => {
 
                 }
 
-            </div>
+            </div> */}
             <div className={modal ? style.modalActive : style.modal} onClick={() => setModal(false)}>
                 <div className={style.ModalContent} onClick={e => e.stopPropagation()}>
 
