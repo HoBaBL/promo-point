@@ -37,6 +37,7 @@ const StoreLink = () => {
     }, [id]);
   
     async function getPromo() {
+        setLoading(false)
         const { data, error } = await supabase
         .from("promo")
         .select()
@@ -47,7 +48,7 @@ const StoreLink = () => {
             console.log(error)
         }
     }
-
+    console.log(loading)
     //// модальное окно
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [storeActive, setStoreActive] = useState<promoTableType>()
@@ -79,6 +80,11 @@ const StoreLink = () => {
     };
 
     const date = new Date()
+
+    //// скролл в начало страницы
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    },[])
 
     return (
         <div key={id} className={style.container}>

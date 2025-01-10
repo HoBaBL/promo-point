@@ -1,4 +1,4 @@
-import style from '../category/category.module.css'
+import style from '../storeLink/storeLink.module.css'
 import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { Modal, ConfigProvider, Button, Skeleton, Flex } from "antd";
@@ -81,6 +81,11 @@ const CategoryProduct = () => {
 
     const date = new Date()
 
+    //// скролл в начало страницы
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    },[])
+
     return (
         <div key={id} className={style.container}>
             <Modal footer={null} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
@@ -111,7 +116,7 @@ const CategoryProduct = () => {
                 </ConfigProvider>
             </Modal>
             <p className={style.info}>Промокоды / Все Промокоды / {nameStore}</p>
-            <h2 className={style.h2}>{nameStore}</h2>
+            <h2 className={style.h2}>Промокоды {nameStore}</h2>
             <div className={style.fullBlog}>
                 {!loading ? 
                 <Flex vertical gap='middle'>
@@ -151,8 +156,43 @@ const CategoryProduct = () => {
                     :
                     promoTable!.length > 0 ?
                         promoTable?.sort((a, b) => b.num - a.num).map((item) => 
-                            date < new Date(item.time) ? 
-                            <div className={style.item} key={String(item.id)}>
+                            date < new Date(item.time) ?
+                        <div key={String(item.id)}>
+                            <div className={style.itemMin}>
+                                <div className={style.flexMin}>
+                                    <div className={style.imgItemBox}>
+                                        <img className={style.imgItem} src={item.img} alt="" />
+                                    </div>
+                                    <div className={style.positionMinMin}>
+                                        <p className={style.textDescription}>{item.description}</p>
+                                        <h4 className={style.h4}>{item.store}</h4>
+                                        
+                                    </div>
+                                </div>
+                                <div className={style.flexFlexMin}>
+                                    <p className={style.minusPrice}>- {item.promo}</p>
+                                    {date < new Date(item.time) ? <p>до {item.working}</p> : <p style={{color:'red'}}>Срок акции истёк</p>}
+                                </div>
+                                <div className={style.codPosition}>
+                                    <ConfigProvider
+                                theme={{
+                                    components: {
+                                        Button: {
+                                            defaultBg:"rgb(73, 155, 242)",
+                                            defaultColor:"white",
+                                            defaultHoverBg:"rgb(55, 138, 248)",
+                                            defaultHoverColor:"white",
+                                        },
+                                    },
+                                }}
+                            >
+                                <Button disabled={date > new Date(item.time)} className={style.btnCodCodMin} color="default" onClick={() => showModal(item)}>
+                                    Показать код
+                                </Button>
+                                    </ConfigProvider>
+                                </div>
+                            </div>
+                            <div className={style.item} >
                                 <div className={style.imgItemBox}>
                                     <img className={style.imgItem} src={item.img} alt="" />
                                 </div>
@@ -183,12 +223,13 @@ const CategoryProduct = () => {
                                     </div>
                                 </div>
                             </div>
+                        </div>
                             : ""
                         )
                         : <p>Промокодов нет</p>
                 }
             </div>
-            {/* <div className={style.fullBlog}>
+            <div className={style.fullBlog}>
                 <h3 className={style.promoH3}>Истёкшие промокоды</h3>
                 {!loading ? 
                 <Flex vertical gap='middle'>
@@ -228,7 +269,42 @@ const CategoryProduct = () => {
                     :
                     promoTable?.sort((a, b) => b.num - a.num).map((item) => 
                         date > new Date(item.time) ?
-                        <div className={style.item} key={String(item.id)}>
+                    <div key={String(item.id)}>
+                        <div className={style.itemMin}>
+                            <div className={style.flexMin}>
+                                <div className={style.imgItemBox}>
+                                    <img className={style.imgItem} src={item.img} alt="" />
+                                </div>
+                                <div className={style.positionMinMin}>
+                                    <p className={style.textDescription}>{item.description}</p>
+                                    <h4 className={style.h4}>{item.store}</h4>
+                                    
+                                </div>
+                            </div>
+                            <div className={style.flexFlexMin}>
+                                <p className={style.minusPrice}>- {item.promo}</p>
+                                {date < new Date(item.time) ? <p>до {item.working}</p> : <p style={{color:'red'}}>Срок акции истёк</p>}
+                            </div>
+                            <div className={style.codPosition}>
+                                <ConfigProvider
+                            theme={{
+                                components: {
+                                    Button: {
+                                        defaultBg:"rgb(73, 155, 242)",
+                                        defaultColor:"white",
+                                        defaultHoverBg:"rgb(55, 138, 248)",
+                                        defaultHoverColor:"white",
+                                    },
+                                },
+                            }}
+                        >
+                            <Button disabled={date > new Date(item.time)} className={style.btnCodCodMin} color="default" onClick={() => showModal(item)}>
+                                Показать код
+                            </Button>
+                                </ConfigProvider>
+                            </div>
+                        </div>
+                        <div className={style.item} >
                             <div className={style.imgItemBox}>
                                 <img className={style.imgItem} src={item.img} alt="" />
                             </div>
@@ -259,12 +335,13 @@ const CategoryProduct = () => {
                                 </div>
                             </div>
                         </div>
+                    </div>
                         : ''
                     )
 
                 }
 
-            </div> */}
+            </div>
         </div>
     )
 }

@@ -140,6 +140,22 @@ const Blog = () => {
                             <Skeleton.Input active={true} style={{width:'100px', height:'24px', minWidth:"0px"}} />
                         </Flex>
                     </Flex>
+                    <Flex gap='middle'>
+                        <Skeleton.Image active={true} style={{width:'200px'}}/>
+                        <Flex style={{width:'100%'}} gap='small' vertical>
+                            <Skeleton.Input active={true} style={{width:'100%', minWidth:"0px"}} />
+                            <Skeleton.Input active={true} style={{width:'100px', height:'24px', minWidth:"0px"}} />
+                            <Skeleton.Input active={true} style={{width:'100px', height:'24px', minWidth:"0px"}} />
+                        </Flex>
+                    </Flex>
+                    <Flex gap='middle'>
+                        <Skeleton.Image active={true} style={{width:'200px'}}/>
+                        <Flex style={{width:'100%'}} gap='small' vertical>
+                            <Skeleton.Input active={true} style={{width:'100%', minWidth:"0px"}} />
+                            <Skeleton.Input active={true} style={{width:'100px', height:'24px', minWidth:"0px"}} />
+                            <Skeleton.Input active={true} style={{width:'100px', height:'24px', minWidth:"0px"}} />
+                        </Flex>
+                    </Flex>
                 </Flex>
                     :
                     promoTable?.sort((a, b) => b.num - a.num).map((item) => 
