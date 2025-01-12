@@ -1,10 +1,6 @@
-.container {
-    width: 75%;
-    /* padding: 10px; */
-    /* margin-top: 40px; */
-}
 
 .container {
+    width: 75%;
     max-width: 1220px;
     margin: 0 auto;
     padding: 10px;
@@ -228,6 +224,13 @@
     display: none;
 }
 
+
+@media (max-width: 890px) {
+    .container {
+        width: 100%;
+        padding: 0;
+    }
+}
 
 @media (max-width: 724px) {
     .h2 {

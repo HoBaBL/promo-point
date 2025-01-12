@@ -139,7 +139,6 @@ const MenuLeft = () => {
                         </Link>
                     )}
                 </div>
-                
             </div>
 
             <div className={style.menuLeft}>

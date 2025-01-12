@@ -103,8 +103,13 @@ const Header = () => {
                     <GiHamburgerMenu size={25} color='black'/>
                 </Button>
                 <Drawer
-                    title={<Link to={'/home'}>
-                            <h2 onClick={onClose} className={style.h2}>PromoPoint</h2>
+                    title={
+                        <Link className={style.flexTitle} to={'/'}>
+                            <GrCube size={34}/>
+                            <div>
+                                <h2 className={style.h2}>Pixel.ru</h2>
+                                <p className={style.itelP}>Промокоды</p>
+                            </div>
                         </Link>}
                     placement={"left"}
                     closable={false}

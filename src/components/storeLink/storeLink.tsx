@@ -48,7 +48,6 @@ const StoreLink = () => {
             console.log(error)
         }
     }
-    console.log(loading)
     //// модальное окно
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [storeActive, setStoreActive] = useState<promoTableType>()

@@ -1,6 +1,7 @@
 import style from './catalog.module.css'
 import { Outlet } from "react-router-dom";
 import MenuLeft from '../menuLeft/menuLeft'
+import MenuButtom from './menuButtom';
 
 const Home = () => {
 
@@ -9,6 +10,10 @@ const Home = () => {
             <div className={style.flexMain}>
                 <Outlet/>
                 <MenuLeft/>
+                
+            </div>
+            <div className={style.buttomMenu}>
+                <MenuButtom/>
             </div>
         </div>
     )
