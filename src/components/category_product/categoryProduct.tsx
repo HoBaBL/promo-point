@@ -4,6 +4,9 @@ import { createClient } from "@supabase/supabase-js";
 import { Modal, ConfigProvider, Button, Skeleton, Flex } from "antd";
 import { IoMdCopy, IoMdCheckmark } from "react-icons/io";
 import { useParams } from "react-router-dom";
+import { IoGiftOutline } from "react-icons/io5";
+import { BsTag } from "react-icons/bs";
+import { FaBarsStaggered } from "react-icons/fa6";
 
 
 const supabase = createClient("https://bgzzybfspduugexyavws.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnenp5YmZzcGR1dWdleHlhdndzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjQzNTEwMzMsImV4cCI6MjAzOTkyNzAzM30.nCq3Rex2zdCKgJPdVzGhzmNVOEoM-LwBF3TF_cPvUhs");
@@ -34,9 +37,27 @@ type ComersType = {
 const CategoryProduct = () => {
     const [comers, setComers] = useState<ComersType[] | null>([])
     const [loading, setLoading] = useState(false)
-    // const [nameStore, setNameStore] = useState(localStorage.getItem('categoryEn')!)
     const [name, setName] = useState(localStorage.getItem('category')!)
     const { id } = useParams()
+    const [radio, setRadio] = useState<string[]>(["promocode", "action"]) /// радио кнопки
+    const [radioActive, setRadioActive] = useState("Все")
+    const radioBtn = [
+        {
+            text: "Все",
+            icon : <FaBarsStaggered size={16}/>,
+            value: ["promocode", "action"]
+        },
+        {
+            text: "Промокоды",
+            icon : <BsTag size={16}/>,
+            value: ["promocode"]
+        },
+        {
+            text: "Акции",
+            icon : <IoGiftOutline size={16}/>,
+            value: ["action"]
+        }
+    ]
 
     useEffect(() => {
         // setNameStore(localStorage.getItem('categoryEn')!)
@@ -46,12 +67,13 @@ const CategoryProduct = () => {
 
     useEffect(() => {
         getComers();
-    }, [id]);
+    }, [id, radio]);
   
     async function getComers() {
         setLoading(false)
         const { data, error } = await supabase.from("PromoComers").select()
-        .eq('categories', localStorage.getItem('categoryEn'));
+        .eq('categories', localStorage.getItem('categoryEn'))
+        .in('species', radio)
         setComers(data);
         setLoading(true)
         if (error !== null) {
@@ -128,6 +150,14 @@ const CategoryProduct = () => {
             </Modal>
             <p className={style.info}>Промокоды / Все Промокоды / {name}</p>
             <h2 className={style.h2}>Промокоды {name}</h2>
+            <div className={style.flexBtnInfo}>
+                {radioBtn.map((item) => 
+                    <button onClick={() => {setRadio(item.value),setRadioActive(item.text)}} className={radioActive === item.text ? style.btnInfoActive : style.btnInfo}>
+                        {item.icon}
+                        {item.text}
+                    </button>  
+                )}
+            </div>
             <div className={style.fullBlog}>
                 {!loading ? 
                 <Flex vertical gap='middle'>
@@ -200,22 +230,40 @@ const CategoryProduct = () => {
                                     {date > new Date(item.date_start) ? <p className={style.Pdate}>до {item.date_end !==undefined ? `0${new Date(item.date_end).getDate()}`.slice(-2)  + '.' + (`0${Number(new Date(item.date_end).getMonth() + 1)}`).slice(-2) + '.' + new Date(item.date_end).getFullYear() : ''}</p> : <p className={style.Pdate} style={{color:'red'}}>Срок акции истёк</p>}
                                 </div>
                                 <div className={style.codPosition}>
-                                    <ConfigProvider
-                                theme={{
-                                    components: {
-                                        Button: {
-                                            defaultBg:"rgb(73, 155, 242)",
-                                            defaultColor:"white",
-                                            defaultHoverBg:"rgb(55, 138, 248)",
-                                            defaultHoverColor:"white",
-                                        },
-                                    },
-                                }}
-                            >
-                                <Button target="_blank" href={item.gotolink}  disabled={date < new Date(item.date_start)} className={style.btnCodCodMin} color="default" onClick={() => showModal(item)}>
-                                    Показать код
-                                </Button>
-                                    </ConfigProvider>
+                                    {item.species === "action" ?
+                                        <ConfigProvider
+                                            theme={{
+                                                components: {
+                                                    Button: {
+                                                        defaultBg:"rgb(73, 155, 242)",
+                                                        defaultColor:"white",
+                                                        defaultHoverBg:"rgb(55, 138, 248)",
+                                                        defaultHoverColor:"white",
+                                                    },
+                                                },
+                                            }}>
+                                            <Button target="_blank" href={item.gotolink} disabled={date < new Date(item.date_start)} className={style.btnCodCodMin} color="default">
+                                                Перейти к акции
+                                            </Button>
+                                        </ConfigProvider>
+                                        :
+                                        <ConfigProvider
+                                            theme={{
+                                                components: {
+                                                    Button: {
+                                                        defaultBg:"rgb(73, 155, 242)",
+                                                        defaultColor:"white",
+                                                        defaultHoverBg:"rgb(55, 138, 248)",
+                                                        defaultHoverColor:"white",
+                                                    },
+                                                },
+                                            }}
+                                        >
+                                            <Button target="_blank" href={item.gotolink} disabled={date < new Date(item.date_start)} className={style.btnCodCodMin} color="default" onClick={() => showModal(item)}>
+                                                Показать код
+                                            </Button>
+                                        </ConfigProvider>
+                                    }
                                 </div>
                             </div>
                             <div className={style.item}>
@@ -230,7 +278,24 @@ const CategoryProduct = () => {
                                     </div>
                                     <div className={style.codPosition}>
                                     {date > new Date(item.date_start) ? <p className={style.Pdate}>{item.date_end !== 'None' ? 'до ' + `0${new Date(item.date_end).getDate()}`.slice(-2)  + '.' + (`0${Number(new Date(item.date_end).getMonth() + 1)}`).slice(-2) + '.' + new Date(item.date_end).getFullYear() : ''}</p> : <p className={style.Pdate} style={{color:'red'}}>Срок акции истёк</p>}
-                                        <ConfigProvider
+                                        {item.species === "action" ?
+                                            <ConfigProvider
+                                                theme={{
+                                                    components: {
+                                                        Button: {
+                                                            defaultBg:"rgb(73, 155, 242)",
+                                                            defaultColor:"white",
+                                                            defaultHoverBg:"rgb(55, 138, 248)",
+                                                            defaultHoverColor:"white",
+                                                        },
+                                                    },
+                                                }}>
+                                                <Button target="_blank" href={item.gotolink} disabled={date < new Date(item.date_start)} className={style.btnCodCod} color="default">
+                                                    Перейти к акции
+                                                </Button>
+                                            </ConfigProvider>
+                                            :
+                                            <ConfigProvider
                                                 theme={{
                                                     components: {
                                                         Button: {
@@ -246,6 +311,7 @@ const CategoryProduct = () => {
                                                     Показать код
                                                 </Button>
                                             </ConfigProvider>
+                                        }
                                     </div>
                                 </div>
                             </div>

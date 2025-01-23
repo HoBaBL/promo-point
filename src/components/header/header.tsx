@@ -2,30 +2,16 @@ import { Link } from 'react-router-dom';
 import style from './header.module.css'
 import { Button, Input, Drawer } from "antd";
 import { useEffect, useRef, useState } from 'react';
-import store from '../../assets/store';
 import { GiHamburgerMenu } from "react-icons/gi";
 import { RxCross2 } from "react-icons/rx";
 import { GrCube } from "react-icons/gr";
+import AllStore from '../../assets/AllStore';
+import Fuse from 'fuse.js';
 
 const Header = () => {
     const { Search } = Input;
-    const [search, setSearch] = useState<any>("")
-    const [searchResult, setSearchResult] = useState<any>([])
     const refTask = useRef<any>();
     const [searchActive, setSearchActive] = useState(false)
-
-    const handleChange = (event:any) => {
-        setSearch(event.target.value);
-    };
-
-    useEffect(() => {
-        // if (search.length > 2) {
-            const results = store.filter((s) =>
-                s.text.toLowerCase().includes(search.toLowerCase())
-            );
-            setSearchResult(results);
-        // }
-    }, [search]);
 
     useEffect(() => {
         document.addEventListener("mousedown", MimoClick)
@@ -55,8 +41,25 @@ const Header = () => {
 
     const onClose = () => {
         setOpen(false);
-        setSearch("")
+        updateQuery("")
     };
+
+    //// Поиск Fuse
+    const [query, updateQuery] = useState('');
+
+    const fuse = new Fuse(AllStore, {
+        keys: [
+          'text',
+          'textEn',
+          'nameBaza'
+        ]
+    });
+
+    function onSearch({ currentTarget }:any) {
+        updateQuery(currentTarget.value);
+    }
+    const results = fuse.search(query);
+    const characterResults = results.map(character => character.item);
 
     return (
         <header className={style.header}>
@@ -86,10 +89,10 @@ const Header = () => {
                     
                 </div>
                 <div className={style.flex}>
-                    <Search onClick={() => setSearchActive(true)} allowClear  value={search} onChange={handleChange} className={style.searchInput} placeholder="Поиск" enterButton />
-                    <div className={searchActive && search.length > 0 ? style.resultFullFlex : style.resultFullFlexNone} ref={refTask}>
-                        {searchResult.length > 0 ?
-                            searchResult.slice(0, 4).map((result:any) => 
+                    <Search onClick={() => setSearchActive(true)} allowClear  value={query} onChange={onSearch} className={style.searchInput} placeholder="Поиск" enterButton />
+                    <div className={searchActive && query.length > 0 ? style.resultFullFlex : style.resultFullFlexNone} ref={refTask}>
+                        {characterResults.length > 0 ?
+                            characterResults.slice(0, 4).map((result:any) => 
                                 <Link onClick={() => localName(result.text)} to={`/catalog/${result.textEn}`} className={style.resultFlex} key={result.textEn}>
                                     <img className={style.resultImg} src={result.img} alt={result.text} />
                                     <p className={style.resultText}>{result.text}</p>
@@ -121,10 +124,10 @@ const Header = () => {
                     }
                 >
                     <div className={style.flexMin}>
-                        <Search onClick={() => setSearchActive(true)} allowClear  value={search} onChange={handleChange} className={style.searchInput} placeholder="Поиск" enterButton />
-                        <div className={searchActive && search.length > 0 ? style.resultFullFlex : style.resultFullFlexNone} ref={refTask}>
-                            {searchResult.length > 0 ?
-                                searchResult.slice(0, 4).map((result:any) => 
+                        <Search onClick={() => setSearchActive(true)} allowClear  value={query} onChange={onSearch} className={style.searchInput} placeholder="Поиск" enterButton />
+                        <div className={searchActive && query.length > 0 ? style.resultFullFlex : style.resultFullFlexNone} ref={refTask}>
+                            {characterResults.length > 0 ?
+                                characterResults.slice(0, 4).map((result:any) => 
                                     <Link onClick={() => localName(result.text)} to={`/catalog/${result.textEn}`} className={style.resultFlex} key={result.textEn}>
                                         <img className={style.resultImg} src={result.img} alt={result.text} />
                                         <p className={style.resultText}>{result.text}</p>

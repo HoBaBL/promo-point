@@ -13,6 +13,8 @@ import { IoMdCopy, IoMdCheckmark } from "react-icons/io";
 import { LuBaby, LuBone } from "react-icons/lu";
 import { MdOutlineRoomService } from "react-icons/md";
 import store from '../../assets/store';
+import Fuse from 'fuse.js';
+import AllStore from '../../assets/AllStore';
 
 const supabase = createClient("https://bgzzybfspduugexyavws.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnenp5YmZzcGR1dWdleHlhdndzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjQzNTEwMzMsImV4cCI6MjAzOTkyNzAzM30.nCq3Rex2zdCKgJPdVzGhzmNVOEoM-LwBF3TF_cPvUhs");
 
@@ -143,8 +145,7 @@ const Home = () => {
 
     //// модальное окно
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [search, setSearch] = useState<any>("")
-    const [searchResult, setSearchResult] = useState<any>([])
+    // const [search, setSearch] = useState<any>("")
     const refTask = useRef<any>();
 
     const [storeActiveComers, setStoreActiveComers] = useState<ComersType>()
@@ -196,17 +197,6 @@ const Home = () => {
 
     const { Search } = Input;
 
-    const handleChange = (event:any) => {
-        setSearch(event.target.value);
-    };
-
-    useEffect(() => {
-        const results = store.filter((s) =>
-            s.text.toLowerCase().includes(search.toLowerCase())
-        );
-        setSearchResult(results);
-    }, [search]);
-
     useEffect(() => {
         document.addEventListener("mousedown", MimoClick)
         return () => {
@@ -233,7 +223,25 @@ const Home = () => {
     useEffect(() => {
         window.scrollTo(0, 0)
     },[])
-    
+
+    //// Поиск Fuse
+    const [query, updateQuery] = useState('');
+
+    const fuse = new Fuse(AllStore, {
+        keys: [
+          'text',
+          'textEn',
+          'nameBaza'
+        ]
+    });
+
+    function onSearch({ currentTarget }:any) {
+        updateQuery(currentTarget.value);
+    }
+    const results = fuse.search(query);
+    const characterResults = results.map(character => character.item);
+
+
     return (
         <div className={style.home}>
             <Modal footer={null} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
@@ -401,10 +409,10 @@ const Home = () => {
             </div>
             <div className={style.searchBlock}>
                 <h3 className={style.h3Search}>Поиск магазинов</h3>
-                <Search onClick={() => setSearchActive(true)} allowClear size="large" value={search} onChange={handleChange} className={style.searchInput} placeholder="Поиск" enterButton />
-                <div className={searchActive  && search.length > 0 ? style.resultFullFlex : style.resultFullFlexNone} ref={refTask}>
-                    {searchResult.length > 0 ?
-                        searchResult.map((result:any) => 
+                <Search onClick={() => setSearchActive(true)} allowClear size="large" value={query} onChange={onSearch} className={style.searchInput} placeholder="Поиск" enterButton />
+                <div className={searchActive  && query.length > 0 ? style.resultFullFlex : style.resultFullFlexNone} ref={refTask}>
+                    {characterResults.length > 0 ?
+                        characterResults.map((result:any) => 
                             <Link onClick={() => localName(result.text)} to={`/catalog/${result.textEn}`} className={style.resultFlex} key={result.textEn}>
                                 <img className={style.resultImg} src={result.img} alt={result.text} />
                                 <p className={style.resultText}>{result.text}</p>

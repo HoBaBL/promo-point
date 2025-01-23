@@ -35,7 +35,7 @@ const MenuButtom = () => {
                     )}
                 </div>
             </div>
-            { id !== undefined ? 
+            { index !== -1 ? 
                 <div className={style.menuLeft}>
                     <Flex style={{marginBottom:"20px"}} gap={"middle"}>
                         <img className={style.imgMin} src={store[index].img} alt={store[index].textEn} />

@@ -57,11 +57,8 @@ const StoreLink = () => {
             icon : <IoGiftOutline size={16}/>,
             value: ["action"]
         }
-        ]
+    ]
 
-    // useEffect(() => {
-    //     setNameStore(localStorage.getItem('nameStore')!)
-    // },[id])
     
 
     useEffect(() => {
