@@ -4,109 +4,154 @@ import { createClient } from "@supabase/supabase-js";
 import { Link } from 'react-router-dom';
 import { LuGamepad2 } from "react-icons/lu";
 import { RiComputerLine, RiHome3Line, RiShoppingCartLine } from "react-icons/ri";
-import { PiHamburgerBold, PiSneaker, PiBooks, PiPillBold } from "react-icons/pi";
+import { PiHamburgerBold, PiSneaker, PiBooks, PiPillBold,PiBookOpenTextBold } from "react-icons/pi";
 import { IoBicycleOutline, IoTicketOutline } from "react-icons/io5";
 import { TbCoins } from "react-icons/tb";
 import { AiOutlineProduct } from "react-icons/ai";
 import { Modal, ConfigProvider, Button, Input, Flex, Skeleton} from "antd";
 import { IoMdCopy, IoMdCheckmark } from "react-icons/io";
+import { LuBaby, LuBone } from "react-icons/lu";
+import { MdOutlineRoomService } from "react-icons/md";
 import store from '../../assets/store';
 
 const supabase = createClient("https://bgzzybfspduugexyavws.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnenp5YmZzcGR1dWdleHlhdndzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjQzNTEwMzMsImV4cCI6MjAzOTkyNzAzM30.nCq3Rex2zdCKgJPdVzGhzmNVOEoM-LwBF3TF_cPvUhs");
 
-type promoTableType = {
-    id:number,
-    promo: string,
-    description: string,
-    comments: string,
-    like: number,
-    img: string,
-    code:string,
-    working:string,
-    time: string,
-    store: string,
-    date:number,
-    num: number
+type ComersType = {
+    id: number, 
+    name:string,
+    site: string,
+    rating: string,
+    advcampaign_id: number,
+    advcampaign_name: string,
+    logo: string,
+    description: string | undefined,
+    species: string,
+    promocode: string,
+    promolink: string | undefined,
+    gotolink: string,
+    date_start: any,
+    date_end: any,
+    exclusive: boolean,
+    types: string,
+    categories: string,
+    special_category: string | undefined,
+    discount: string | undefined,
+    is_takeads_coupon: boolean
 }
 
 const Home = () => {
-    const [promoTable, setPromoTable] = useState<promoTableType[] | null>([]);
     const [loading, setLoading] = useState(false)
     const [searchActive, setSearchActive] = useState(false)
     const categories = [
-        {
-            name:"Все товары",
-            img: <AiOutlineProduct color='rgb(24, 117, 240)' size={40}/>,
-            nameEn: "vse-tovari"
-        },
-        {
-            name:"Банки",
-            img: <TbCoins color='rgb(24, 117, 240)' size={40}/>,
-            nameEn: "banki"
-        },
-        {
-            name:"Еда",
-            img:<PiHamburgerBold color='rgb(24, 117, 240)' size={40}/>,
-            nameEn: "eda"
-        },
-        {
-            name:"Аптека",
-            img: <PiPillBold color='rgb(24, 117, 240)' size={40}/>,
-            nameEn: "apteka"
-        },
-        {
-            name:"Книги",
-            img: <PiBooks color='rgb(24, 117, 240)' size={40}/>,
-            nameEn: "knigi"
-        },
-        {
-            name:"Одежда и обувь",
-            img:<PiSneaker color='rgb(24, 117, 240)' size={40}/>,
-            nameEn: "clothes-and-shoes"
-        },
-        {
-            name:"Путешествия и билеты",
-            img:<IoTicketOutline color='rgb(24, 117, 240)' size={40}/>,
-            nameEn: "travel-and-tickets"
-        },
-        {
-            name:"Развлечения",
-            img: <LuGamepad2 color='rgb(24, 117, 240)' size={40}/>,
-            nameEn: "entertainments"
-        },
-        {
-            name:"Спорт",
-            img:<IoBicycleOutline color='rgb(24, 117, 240)' size={40}/>,
-            nameEn: "sport"
-        },
-        {
-            name:"Электроника",
-            img: <RiComputerLine color='rgb(24, 117, 240)' size={40}/>,
-            nameEn: "electronics"
-        },
-        {
-            name:"Товары для дома",
-            img: <RiHome3Line color='rgb(24, 117, 240)' size={40}/>,
-            nameEn: "tovary-dlya-doma"
-        },
-        {
-            name:"Гипермаркеты",
-            img: <RiShoppingCartLine color='rgb(24, 117, 240)' size={40}/>,
-            nameEn: "gipermarkety"
-        }
-    ]
+            {
+                name:"Все товары",
+                img: <AiOutlineProduct color='rgb(24, 117, 240)' size={40}/>,
+                nameEn: "vse-tovari",
+                en: ""
+            },
+            {
+                name:"Банки",
+                img: <TbCoins color='rgb(24, 117, 240)' size={40}/>,
+                nameEn: "banki",
+                en: "Bank"
+            },
+            {
+                name:"Еда",
+                img:<PiHamburgerBold color='rgb(24, 117, 240)' size={40}/>,
+                nameEn: "eda",
+                en: "Food"
+            },
+            {
+                name:"Аптека",
+                img: <PiPillBold color='rgb(24, 117, 240)' size={40}/>,
+                nameEn: "apteka",
+                en: "Personal Care & Pharmacy"
+            },
+            {
+                name:"Книги",
+                img: <PiBooks color='rgb(24, 117, 240)' size={40}/>,
+                nameEn: "knigi",
+                en: "Books"
+            },
+            {
+                name:"Одежда и обувь",
+                img:<PiSneaker color='rgb(24, 117, 240)' size={40}/>,
+                nameEn: "clothes-and-shoes",
+                en: "Clothing"
+            },
+            {
+                name:"Путешествия и билеты",
+                img:<IoTicketOutline color='rgb(24, 117, 240)' size={40}/>,
+                nameEn: "travel-and-tickets",
+                en: "Tours & Travels"
+            },
+            {
+                name:"Развлечения",
+                img: <LuGamepad2 color='rgb(24, 117, 240)' size={40}/>,
+                nameEn: "entertainments",
+                en: "Entertainments"
+            },
+            {
+                name:"Спорт",
+                img:<IoBicycleOutline color='rgb(24, 117, 240)' size={40}/>,
+                nameEn: "sport",
+                en: "Sport"
+            },
+            {
+                name:"Электроника",
+                img: <RiComputerLine color='rgb(24, 117, 240)' size={40}/>,
+                nameEn: "electronics",
+                en: "Computers & Electronics"
+            },
+            {
+                name:"Товары для дома",
+                img: <RiHome3Line color='rgb(24, 117, 240)' size={40}/>,
+                nameEn: "tovary-dlya-doma",
+                en: "Homeware"
+            },
+            {
+                name:"Гипермаркеты",
+                img: <RiShoppingCartLine color='rgb(24, 117, 240)' size={40}/>,
+                nameEn: "gipermarkety",
+                en: "Marketplaces (including Chinese Stores)"
+            },
+            {
+                name:"Услуги",
+                img: <MdOutlineRoomService color='rgb(24, 117, 240)' size={40}/>,
+                nameEn: "uslugi",
+                en: "Services"
+            },
+            {
+                name:"Детские товары",
+                img: <LuBaby color='rgb(24, 117, 240)' size={40}/>,
+                nameEn: "detskie-tovary",
+                en: "Toys, Kids & Babies"
+            },
+            {
+                name:"Товары для животных",
+                img: <LuBone color='rgb(24, 117, 240)' size={40}/>,
+                nameEn: "tovary-dlya-zhivotnykh",
+                en: "Pet products"
+            },
+            {
+                name:"Образование",
+                img: <PiBookOpenTextBold color='rgb(24, 117, 240)' size={40}/>,
+                nameEn: "obrazovanie",
+                en: "Online Education"
+            }
+        ]
 
     //// модальное окно
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [storeActive, setStoreActive] = useState<promoTableType>()
     const [search, setSearch] = useState<any>("")
     const [searchResult, setSearchResult] = useState<any>([])
     const refTask = useRef<any>();
 
-    const showModal = (item:promoTableType) => {
-      setIsModalOpen(true);
-      setStoreActive(item)
-    };
+    const [storeActiveComers, setStoreActiveComers] = useState<ComersType>()
+    const showModalComers = (item:ComersType) => {
+        setIsModalOpen(true);
+        setStoreActiveComers(item)
+      };
   
     const handleOk = () => {
       setIsModalOpen(false);
@@ -131,12 +176,14 @@ const Home = () => {
     };
 
     useEffect(() => {
-        getPromo();
+        getComers()
     }, []);
-  
-    async function getPromo() {
-        const { data, error } = await supabase.from("promo").select();
-        setPromoTable(data);
+
+
+    const [comers, setComers] = useState<ComersType[] | null>([])
+    async function getComers() {
+        const { data, error } = await supabase.from("PromoComers").select().eq('species', 'promocode').range(0, 3);
+        setComers(data);
         setLoading(true)
         if (error !== null) {
             console.log(error)
@@ -175,8 +222,9 @@ const Home = () => {
         }
     }
 
-    function localCategory(item:string) {
-        localStorage.setItem('category', item);
+    function localCategory(item:any) {
+        localStorage.setItem('category', item.name);
+        localStorage.setItem('categoryEn', item.en)
     }
 
     const date = new Date()
@@ -185,17 +233,17 @@ const Home = () => {
     useEffect(() => {
         window.scrollTo(0, 0)
     },[])
-
+    
     return (
         <div className={style.home}>
             <Modal footer={null} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                <p className={style.modalMaxText}>{storeActive?.description}</p>
-                <p className={style.textStore}>{storeActive?.store}</p>
-                <p>{storeActive?.comments}</p>
-                <p style={{fontSize:"16px"}}>Ваша скидка <span className={style.minusPrice}>-{storeActive?.promo}</span></p>
+                <p className={style.modalMaxText}>{storeActiveComers?.name}</p>
+                <p className={style.textStore}>{storeActiveComers?.advcampaign_name}</p>
+                <p>{storeActiveComers?.description}</p>
+                <p style={{fontSize:"16px"}}>Ваша скидка <span className={style.minusPrice}>-{storeActiveComers?.discount}</span></p>
                 <div className={style.modalFlex}>
-                    <p className={style.modalCode}>{storeActive?.code}</p>
-                    <Button onClick={() => copyTextToClipboard(storeActive?.code)} className={style.modalCodeBtn}>
+                    <p className={style.modalCode}>{storeActiveComers?.promocode}</p>
+                    <Button onClick={() => copyTextToClipboard(storeActiveComers?.promocode)} className={style.modalCodeBtn}>
                         {!copy ? <IoMdCopy size={20}/> : <IoMdCheckmark size={20}/>}
                     </Button>
                 </div>
@@ -211,7 +259,7 @@ const Home = () => {
                         },
                     }}
                 >
-                    <Button className={style.btnCodCod} color="default">
+                    <Button target="_blank" href={storeActiveComers?.gotolink} className={style.btnCodCod} color="default">
                         Перейти в магазин
                     </Button>
                 </ConfigProvider>
@@ -221,7 +269,7 @@ const Home = () => {
                 <h3 className={style.h3}>Популярные магазины</h3>
                 <div className={style.storePosition}>
                     {store.map((item) => 
-                        <Link key={item.text} onClick={() => localName(item.text)} to={`/catalog/${item.textEn}`}>
+                        <Link className={style.linkImgItem} key={item.text} onClick={() => localName(item.text)} to={`/catalog/${item.textEn}`}>
                             <button className={style.itemStore} >
                                 <img className={style.img} src={item.img} alt={item.text} />
                             </button>
@@ -268,22 +316,23 @@ const Home = () => {
                                 </Flex>
                             </>
                         :
-                        promoTable?.sort((a, b) => b.num - a.num).slice(0,4).map((item) => 
-                            date < new Date(item.time) ?
+                        comers?.map((item) => 
+                            date >= new Date(item.date_start) ?
                         <div key={String(item.id)} className={style.bigItem}>
                             <div  className={style.item} >
-                                <div className={style.imgItemBox}>
-                                    <img className={style.imgItem} src={item.img} alt="" />
+                                <div className={style.flexImg}>
+                                    <div className={style.imgItemBox}>
+                                        <img className={style.imgItem} src={item.logo} alt="" />
+                                    </div>
+                                    <div>
+                                        <p className={style.textDescription}>{item.name}</p>
+                                        <h4 className={style.h4}>{item.advcampaign_name}</h4>
+                                
+                                        <p className={style.minusPrice}>- {item.discount !== undefined ? item.discount : ''}</p>
+                                    </div>
                                 </div>
                                 <div className={style.textPosition}>
-                                    <div>
-                                        {/* <p className={style.textDescription}>{item.description}</p> */}
-                                        <h4 className={style.h4}>{item.store}</h4>
-                                        <p className={style.minusPrice}>- {item.promo}</p>
-                                    </div>
                                     <div className={style.codPosition}>
-                                        {date < new Date(item.time) ? <p className={style.Pdate}>до {item.working}</p> : <p className={style.Pdate} style={{color:'red'}}>Срок акции истёк</p>}
-                                        
                                         <ConfigProvider
                                             theme={{
                                                 components: {
@@ -296,7 +345,7 @@ const Home = () => {
                                                 },
                                             }}
                                         >
-                                            <Button disabled={date > new Date(item.time)} className={style.btnCodCod} color="default" onClick={() => showModal(item)}>
+                                            <Button target="_blank" href={item.gotolink} disabled={date < new Date(item.date_start)} className={style.btnCodCod} color="default" onClick={() => showModalComers(item)}>
                                                 Показать код
                                             </Button>
                                         </ConfigProvider>
@@ -316,7 +365,7 @@ const Home = () => {
                                     },
                                 }}
                             >
-                                <Button disabled={date > new Date(item.time)} className={style.btnCodCodMin} color="default" onClick={() => showModal(item)}>
+                                <Button disabled={date < new Date(item.date_start)} className={style.btnCodCodMin} color="default" onClick={() => showModalComers(item)}>
                                     Показать код
                                 </Button>
                             </ConfigProvider>
@@ -326,6 +375,9 @@ const Home = () => {
                         )
                     }
                 </div>
+
+
+
                 <div className={style.btnFullblogPosition}>
                     <ConfigProvider
                         theme={{
@@ -366,7 +418,7 @@ const Home = () => {
                 <h3 className={style.h3Search}>Категории</h3>
                 <div className={style.categoriasPosition}>
                     {categories.map((categorias) => 
-                        <Link key={categorias.name} onClick={() => localCategory(categorias.name)} to={`/catalog/category/${categorias.nameEn}`}>
+                        <Link key={categorias.name} onClick={() => localCategory(categorias)} to={`/catalog/category/${categorias.nameEn}`}>
                             <button style={{width:"100%"}} className={style.categorias} key={categorias.name}>
                                 <div className={style.categoriasImg}>{categorias.img}</div>
                                 <p className={style.categoriasText}>{categorias.name}</p>

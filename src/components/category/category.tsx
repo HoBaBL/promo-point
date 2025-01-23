@@ -1,7 +1,9 @@
 import style from './category.module.css'
 import { RiComputerLine, RiHome3Line, RiShoppingCartLine } from "react-icons/ri";
-import { PiHamburgerBold, PiSneaker, PiBooks, PiPillBold } from "react-icons/pi";
+import { PiHamburgerBold, PiSneaker, PiBooks, PiPillBold,PiBookOpenTextBold } from "react-icons/pi";
 import { IoBicycleOutline, IoTicketOutline } from "react-icons/io5";
+import { LuBaby, LuBone } from "react-icons/lu";
+import { MdOutlineRoomService } from "react-icons/md";
 import { TbCoins } from "react-icons/tb";
 import { AiOutlineProduct } from "react-icons/ai";
 import { LuGamepad2 } from "react-icons/lu";
@@ -15,62 +17,98 @@ const Category = () => {
         {
             name:"Все товары",
             img: <AiOutlineProduct color='rgb(24, 117, 240)' size={40}/>,
-            nameEn: "vse-tovari"
+            nameEn: "vse-tovari",
+            en: ""
         },
         {
             name:"Банки",
             img: <TbCoins color='rgb(24, 117, 240)' size={40}/>,
-            nameEn: "banki"
+            nameEn: "banki",
+            en: "Bank"
         },
         {
             name:"Еда",
             img:<PiHamburgerBold color='rgb(24, 117, 240)' size={40}/>,
-            nameEn: "eda"
+            nameEn: "eda",
+            en: "Food"
         },
         {
             name:"Аптека",
             img: <PiPillBold color='rgb(24, 117, 240)' size={40}/>,
-            nameEn: "apteka"
+            nameEn: "apteka",
+            en: "Personal Care & Pharmacy"
         },
         {
             name:"Книги",
             img: <PiBooks color='rgb(24, 117, 240)' size={40}/>,
-            nameEn: "knigi"
+            nameEn: "knigi",
+            en: "Books"
         },
         {
             name:"Одежда и обувь",
             img:<PiSneaker color='rgb(24, 117, 240)' size={40}/>,
-            nameEn: "clothes-and-shoes"
+            nameEn: "clothes-and-shoes",
+            en: "Clothing"
         },
         {
             name:"Путешествия и билеты",
             img:<IoTicketOutline color='rgb(24, 117, 240)' size={40}/>,
-            nameEn: "travel-and-tickets"
+            nameEn: "travel-and-tickets",
+            en: "Tours & Travels"
         },
         {
             name:"Развлечения",
             img: <LuGamepad2 color='rgb(24, 117, 240)' size={40}/>,
-            nameEn: "entertainments"
+            nameEn: "entertainments",
+            en: "Entertainments"
         },
         {
             name:"Спорт",
             img:<IoBicycleOutline color='rgb(24, 117, 240)' size={40}/>,
-            nameEn: "sport"
+            nameEn: "sport",
+            en: "Sport"
         },
         {
             name:"Электроника",
             img: <RiComputerLine color='rgb(24, 117, 240)' size={40}/>,
-            nameEn: "electronics"
+            nameEn: "electronics",
+            en: "Computers & Electronics"
         },
         {
             name:"Товары для дома",
             img: <RiHome3Line color='rgb(24, 117, 240)' size={40}/>,
-            nameEn: "tovary-dlya-doma"
+            nameEn: "tovary-dlya-doma",
+            en: "Homeware"
         },
         {
             name:"Гипермаркеты",
             img: <RiShoppingCartLine color='rgb(24, 117, 240)' size={40}/>,
-            nameEn: "gipermarkety"
+            nameEn: "gipermarkety",
+            en: "Marketplaces (including Chinese Stores)"
+        },
+        {
+            name:"Услуги",
+            img: <MdOutlineRoomService color='rgb(24, 117, 240)' size={40}/>,
+            nameEn: "uslugi",
+            en: "Services"
+        },
+        {
+            name:"Детские товары",
+            img: <LuBaby color='rgb(24, 117, 240)' size={40}/>,
+            nameEn: "detskie-tovary",
+            en: "Toys, Kids & Babies"
+        },
+        {
+            name:"Товары для животных",
+            img: <LuBone color='rgb(24, 117, 240)' size={40}/>,
+            nameEn: "tovary-dlya-zhivotnykh",
+            en: "Pet products"
+        },
+        {
+            name:"Образование",
+            img: <PiBookOpenTextBold color='rgb(24, 117, 240)' size={40}/>,
+            nameEn: "obrazovanie",
+            en: "Online Education"
         }
     ]
 
@@ -80,6 +118,7 @@ const Category = () => {
 
     function localCategory(item:any) {
         localStorage.setItem('category', item.name);
+        localStorage.setItem('categoryEn', item.en)
     }
 
     //// скролл в начало страницы

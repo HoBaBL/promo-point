@@ -6,8 +6,10 @@ import { Button, ConfigProvider, Flex } from 'antd';
 import { MdLocalPhone, MdOutlineEmail, MdOutlineLocationOn } from "react-icons/md";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { RiComputerLine, RiHome3Line, RiShoppingCartLine } from "react-icons/ri";
-import { PiHamburgerBold, PiSneaker, PiBooks, PiPillBold } from "react-icons/pi";
+import { PiHamburgerBold, PiSneaker, PiBooks, PiPillBold, PiBookOpenTextBold } from "react-icons/pi";
 import { IoBicycleOutline, IoTicketOutline } from "react-icons/io5";
+import { LuBaby, LuBone } from "react-icons/lu";
+import { MdOutlineRoomService } from "react-icons/md";
 import { TbCoins } from "react-icons/tb";
 import { AiOutlineProduct } from "react-icons/ai";
 import { LuGamepad2 } from "react-icons/lu";
@@ -19,62 +21,98 @@ const MenuLeft = () => {
             {
                 name:"Все товары",
                 img: <AiOutlineProduct color='rgb(24, 117, 240)' size={40}/>,
-                nameEn: "vse-tovari"
+                nameEn: "vse-tovari",
+                en: ""
             },
             {
                 name:"Банки",
                 img: <TbCoins color='rgb(24, 117, 240)' size={40}/>,
-                nameEn: "banki"
+                nameEn: "banki",
+                en: "Bank"
             },
             {
                 name:"Еда",
                 img:<PiHamburgerBold color='rgb(24, 117, 240)' size={40}/>,
-                nameEn: "eda"
+                nameEn: "eda",
+                en: "Food"
             },
             {
                 name:"Аптека",
                 img: <PiPillBold color='rgb(24, 117, 240)' size={40}/>,
-                nameEn: "apteka"
+                nameEn: "apteka",
+                en: "Personal Care & Pharmacy"
             },
             {
                 name:"Книги",
                 img: <PiBooks color='rgb(24, 117, 240)' size={40}/>,
-                nameEn: "knigi"
+                nameEn: "knigi",
+                en: "Books"
             },
             {
                 name:"Одежда и обувь",
                 img:<PiSneaker color='rgb(24, 117, 240)' size={40}/>,
-                nameEn: "clothes-and-shoes"
+                nameEn: "clothes-and-shoes",
+                en: "Clothing"
             },
             {
                 name:"Путешествия и билеты",
                 img:<IoTicketOutline color='rgb(24, 117, 240)' size={40}/>,
-                nameEn: "travel-and-tickets"
+                nameEn: "travel-and-tickets",
+                en: "Tours & Travels"
             },
             {
                 name:"Развлечения",
                 img: <LuGamepad2 color='rgb(24, 117, 240)' size={40}/>,
-                nameEn: "entertainments"
+                nameEn: "entertainments",
+                en: "Entertainments"
             },
             {
                 name:"Спорт",
                 img:<IoBicycleOutline color='rgb(24, 117, 240)' size={40}/>,
-                nameEn: "sport"
+                nameEn: "sport",
+                en: "Sport"
             },
             {
                 name:"Электроника",
                 img: <RiComputerLine color='rgb(24, 117, 240)' size={40}/>,
-                nameEn: "electronics"
+                nameEn: "electronics",
+                en: "Computers & Electronics"
             },
             {
                 name:"Товары для дома",
                 img: <RiHome3Line color='rgb(24, 117, 240)' size={40}/>,
-                nameEn: "tovary-dlya-doma"
+                nameEn: "tovary-dlya-doma",
+                en: "Homeware"
             },
             {
                 name:"Гипермаркеты",
                 img: <RiShoppingCartLine color='rgb(24, 117, 240)' size={40}/>,
-                nameEn: "gipermarkety"
+                nameEn: "gipermarkety",
+                en: "Marketplaces (including Chinese Stores)"
+            },
+            {
+                name:"Услуги",
+                img: <MdOutlineRoomService color='rgb(24, 117, 240)' size={40}/>,
+                nameEn: "uslugi",
+                en: "Services"
+            },
+            {
+                name:"Детские товары",
+                img: <LuBaby color='rgb(24, 117, 240)' size={40}/>,
+                nameEn: "detskie-tovary",
+                en: "Toys, Kids & Babies"
+            },
+            {
+                name:"Товары для животных",
+                img: <LuBone color='rgb(24, 117, 240)' size={40}/>,
+                nameEn: "tovary-dlya-zhivotnykh",
+                en: "Pet products"
+            },
+            {
+                name:"Образование",
+                img: <PiBookOpenTextBold color='rgb(24, 117, 240)' size={40}/>,
+                nameEn: "obrazovanie",
+                en: "Online Education"
             }
         ]
 
@@ -88,18 +126,23 @@ const MenuLeft = () => {
 
     function localCategory(item:any) {
         localStorage.setItem('category', item.name);
+        localStorage.setItem('categoryEn', item.en)
     }
 
-    const index = store.findIndex((e) => e.text === nameStore)
+    const index = store.findIndex((e) => e.textEn === id)
 
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    },[])
+    // store[index].textEn
     return (
         <div className={style.menuPosition}>
-            { id === store[index].textEn ? 
+            { index !== -1 ? 
                 <div className={style.menuLeft}>
-                    <Flex style={{marginBottom:"20px"}} gap={"middle"}>
+                    <div className={style.imgItelFlex}>
                         <img className={style.img} src={store[index].img} alt={store[index].textEn} />
                         <h3>{store[index].text}</h3>
-                    </Flex>
+                    </div>
                     <Flex style={{marginBottom:"10px"}} vertical gap={"middle"}>
                         <p className={style.phoneText}><MdLocalPhone style={{minWidth:"26px"}} size={26}/> {store[index].phone}</p>
                         <p className={style.phoneText}><MdOutlineEmail style={{minWidth:"26px"}} size={26}/> {store[index].mail}</p>

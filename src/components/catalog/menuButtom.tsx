@@ -20,7 +20,7 @@ const MenuButtom = () => {
     function localName(item:string) {
         localStorage.setItem('nameStore', item);
     }
-
+    // store[index].textEn
     return (
         <div className={style.buttom}>
             <div className={style.menuLeft}>
@@ -35,7 +35,7 @@ const MenuButtom = () => {
                     )}
                 </div>
             </div>
-            { id === store[index].textEn ? 
+            { id !== undefined ? 
                 <div className={style.menuLeft}>
                     <Flex style={{marginBottom:"20px"}} gap={"middle"}>
                         <img className={style.imgMin} src={store[index].img} alt={store[index].textEn} />
