@@ -1,7 +1,7 @@
 import style from './menuLeft.module.css'
 import { Link, useParams } from 'react-router-dom';
 import store from '../../assets/store';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Button, ConfigProvider, Flex } from 'antd';
 import { MdLocalPhone, MdOutlineEmail, MdOutlineLocationOn } from "react-icons/md";
 import { FaExternalLinkAlt } from "react-icons/fa";
@@ -15,7 +15,7 @@ import { AiOutlineProduct } from "react-icons/ai";
 import { LuGamepad2 } from "react-icons/lu";
 
 const MenuLeft = () => {
-    const [nameStore, setNameStore] = useState(localStorage.getItem('nameStore')!)
+    // const [nameStore, setNameStore] = useState(localStorage.getItem('nameStore')!)
     const { id } = useParams()
     const categories = [
             {
@@ -116,9 +116,9 @@ const MenuLeft = () => {
             }
         ]
 
-    useEffect(() => {
-        setNameStore(localStorage.getItem('nameStore')!)
-    },[id])
+    // useEffect(() => {
+    //     setNameStore(localStorage.getItem('nameStore')!)
+    // },[id])
 
     function localName(item:string) {
         localStorage.setItem('nameStore', item);
