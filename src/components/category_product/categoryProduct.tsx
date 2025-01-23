@@ -34,12 +34,12 @@ type ComersType = {
 const CategoryProduct = () => {
     const [comers, setComers] = useState<ComersType[] | null>([])
     const [loading, setLoading] = useState(false)
-    const [nameStore, setNameStore] = useState(localStorage.getItem('categoryEn')!)
+    // const [nameStore, setNameStore] = useState(localStorage.getItem('categoryEn')!)
     const [name, setName] = useState(localStorage.getItem('category')!)
     const { id } = useParams()
 
     useEffect(() => {
-        setNameStore(localStorage.getItem('categoryEn')!)
+        // setNameStore(localStorage.getItem('categoryEn')!)
         setName(localStorage.getItem('category')!)
     },[id])
     
